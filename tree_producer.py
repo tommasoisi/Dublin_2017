@@ -49,7 +49,8 @@ for filename in os.listdir(in_folder):
 
     if not os.path.exists(out_folder):
         os.makedirs(out_folder)
-
+        
+    print(len(glob.glob1(in_folder,"*.dat")))
 
 # my_vector = ROOT.vector('int')()
 # my_vector = ROOT.vector('int')(2)
@@ -72,7 +73,6 @@ t.Branch( 'mynum', n, 'mynum/I' )
 t.Branch( 'myval', d, 'myval[mynum]/F' )
 
 for filename in os.listdir(in_folder):
-    print(len([name for name in os.listdir('.') if os.path.isfile(name)]))
     TrigNumber_tmp=1
 
         # Parsing the info of the input file's name
