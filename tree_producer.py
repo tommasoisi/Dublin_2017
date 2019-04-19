@@ -61,21 +61,18 @@ Caxis=[]
 # my_vector = ROOT.vector('int')()
 
 
-# f = TFile( outputfile, 'recreate' )
-# t = TTree( 'pulse', 'Test beam samples' )
-# t.Branch( 'Caxis', Caxis, 'Caxis/I')
-
-f = TFile( 'test.root', 'recreate' )
-t = TTree( 't1', 'tree with histos' )
- 
+f = TFile( outputfile, 'recreate' )
+t = TTree( 'pulse', 'Test beam samples' )
 
 maxn = 10
 n = array( 'i', [ 0 ] )
 d = array( 'f', maxn*[ 0. ] )
+# t.Branch( 'Caxis', Caxis, 'Caxis/I')
 t.Branch( 'mynum', n, 'mynum/I' )
 t.Branch( 'myval', d, 'myval[mynum]/F' )
 
 for filename in os.listdir(in_folder):
+    print(len([name for name in os.listdir('.') if os.path.isfile(name)]))
     TrigNumber_tmp=1
 
         # Parsing the info of the input file's name
@@ -173,9 +170,9 @@ Caxis = [int(i) for i in Caxis]
 
 # print(my_vector)
 
-vec = np.asarray(Caxis)
-ciccio = array2root(vec, name ='ciccio')
-array2root(vec,'test.root','ciccio')
+#vec = np.asarray(Caxis)
+#ciccio = array2root(vec, name ='ciccio')
+#array2root(vec,'test.root','ciccio')
 
 #
 # pulse = array2tree(array, name='pulse')
