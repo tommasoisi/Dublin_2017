@@ -14,7 +14,7 @@ import ctypes
 import optparse
 import argparse
 
-from root import TFile, TTree
+from ROOT import TFile, TTree
 from array import array
 from root_numpy import array2tree
 from root_numpy import array2root
