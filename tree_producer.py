@@ -118,10 +118,10 @@ while True:
     else:
         for j in range (1):
             next(fh)
-        if trigUpdate == False:
-            TrigNumber_tmp = TrigNumber_tmp + 1
-            time = 0.0
-            trigUpdate = True
+#         if trigUpdate == False:
+#             TrigNumber_tmp = TrigNumber_tmp + 1
+#             time = 0.0
+#             trigUpdate = True
 
 
 
