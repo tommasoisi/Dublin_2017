@@ -133,7 +133,7 @@ for filename in os.listdir(in_folder):
 
             else:
                 for j in range (1):
-                    next(fh)
+                    fh.readline()
                 # if trigUpdate == False:
                 #     TrigNumber_tmp = TrigNumber_tmp + 1
                 #     time = 0.0
