@@ -61,10 +61,15 @@ Caxis=[]
 # my_vector = ROOT.vector('int')()
 
 
-f = TFile( outputfile, 'recreate' )
-t = TTree( 'pulse', 'Test beam samples' )
-t.Branch( 'Caxis', Caxis, 'Caxis/I')
+# f = TFile( outputfile, 'recreate' )
+# t = TTree( 'pulse', 'Test beam samples' )
+# t.Branch( 'Caxis', Caxis, 'Caxis/I')
 
+maxn = 10
+n = array( 'i', [ 0 ] )
+d = array( 'f', maxn*[ 0. ] )
+t.Branch( 'mynum', n, 'mynum/I' )
+t.Branch( 'myval', d, 'myval[mynum]/F' )
 
 for filename in os.listdir(in_folder):
     TrigNumber_tmp=1
