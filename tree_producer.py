@@ -65,6 +65,10 @@ Caxis=[]
 # t = TTree( 'pulse', 'Test beam samples' )
 # t.Branch( 'Caxis', Caxis, 'Caxis/I')
 
+f = TFile( 'test.root', 'recreate' )
+t = TTree( 't1', 'tree with histos' )
+ 
+
 maxn = 10
 n = array( 'i', [ 0 ] )
 d = array( 'f', maxn*[ 0. ] )
