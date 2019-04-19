@@ -51,7 +51,7 @@ for filename in os.listdir(in_folder):
     if not os.path.exists(out_folder):
         os.makedirs(out_folder)
         
-    print(len(glob.glob1(in_folder,"*.dat")))
+ print(len(glob.glob1(in_folder,"*.dat")))
 
 # my_vector = ROOT.vector('int')()
 # my_vector = ROOT.vector('int')(2)
