@@ -32,7 +32,7 @@ args = parser.parse_args()
 
 # Declare Input folder
 in_folder = str(args.path)
-print(len(glob.glob1(in_folder,"*.dat")))
+filenumber=(len(glob.glob1(in_folder,"*.dat")))
 
 # Open input folder
 os.chdir(in_folder)
@@ -68,10 +68,10 @@ f = TFile( outputfile, 'recreate' )
 t = TTree( 'pulse', 'Test beam samples' )
 
 maxn = 10
-n = array( 'i', [ 0 ] )
+n = array( 'i', [ filenumber ] )
 d = array( 'f', maxn*[ 0. ] )
 # t.Branch( 'Caxis', Caxis, 'Caxis/I')
-t.Branch( 'mynum', n, 'mynum/I' )
+# t.Branch( 'mynum', n, 'mynum/I' )
 t.Branch( 'myval', d, 'myval[mynum]/F' )
 
 for filename in os.listdir(in_folder):
@@ -167,6 +167,7 @@ Time = [float(i) for i in Time]
 Aaxis_tmp = [int(i) for i in Aaxis]
 Baxis_tmp = [int(i) for i in Baxis]
 Caxis = [int(i) for i in Caxis]
+t.Branch( 'mynum', n, 'mynum/I' )
 
 # print(Caxis)
 
