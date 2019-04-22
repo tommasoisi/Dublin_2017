@@ -135,11 +135,11 @@ for filename in os.listdir(in_folder):
 
 
 # Caxis_array = np.asarray(Caxis)
-Voltage = [float(i) for i in Voltage]
-TrigNumber = [int(i) for i in TrigNumber]
-Time = [float(i) for i in Time]
-Aaxis_tmp = [int(i) for i in Aaxis]
-Baxis_tmp = [int(i) for i in Baxis]
+# Voltage = [float(i) for i in Voltage]
+# TrigNumber = [int(i) for i in TrigNumber]
+# Time = [float(i) for i in Time]
+# Aaxis_tmp = [int(i) for i in Aaxis]
+# Baxis_tmp = [int(i) for i in Baxis]
 # Caxis_array= [int(i) for i in Caxis]
 
 
