@@ -66,7 +66,7 @@ maxn = 10
 # n = array( 'i', filenumber[ filenumber ] )
 # t.Branch( 'Caxis', Caxis, 'Caxis/I')
 # t.Branch( 'mynum', n, 'mynum/I' )
-t.Branch( 'myval', d, 'myval[mynum]/F' )
+# t.Branch( 'myval', d, 'myval[mynum]/F' )
 # t.Branch( 'mynum', Caxis_array, 'mynum/I' )
 
 # Caxis = array( 'I', [ filenumber ] )
