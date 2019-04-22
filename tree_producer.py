@@ -77,6 +77,7 @@ for filename in os.listdir(in_folder):
                 
 TotData = int(filenumber)*int(sampleNum)*int(totTrig)
 
+TrigNumber = [] 
 Caxis = array( 'i', [ TotData ] )  
 t.Branch( 'Caxis', Caxis, 'Caxis/i' )
 
