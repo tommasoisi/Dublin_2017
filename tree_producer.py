@@ -59,7 +59,7 @@ Baxis=[]
 Caxis=[]
 
 
-Caxis_array = array( 'i', [ 0] )
+Caxis_array = array( 'i', [filenumber] )
 f = TFile( outputfile, 'recreate' )
 t = TTree( 'pulse', 'Test beam samples' )
 t.Branch( 'Caxis', Caxis_array, 'Caxis/i' )
