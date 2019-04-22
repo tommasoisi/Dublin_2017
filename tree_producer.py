@@ -68,7 +68,7 @@ f = TFile( outputfile, 'recreate' )
 t = TTree( 'pulse', 'Test beam samples' )
 
 maxn = 10
-n = array( 'i', filenumber[ filenumber ] )
+# n = array( 'i', filenumber[ filenumber ] )
 d = array( 'f', maxn*[ 0. ] )
 # t.Branch( 'Caxis', Caxis, 'Caxis/I')
 # t.Branch( 'mynum', n, 'mynum/I' )
