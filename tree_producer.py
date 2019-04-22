@@ -201,7 +201,7 @@ Caxis = ROOT.vector('int')(len(Caxis))
 # my_vector = vec
 # print(my_vector)
 print(Caxis)
-for i in len(Caxis):         
+for i in Caxis:         
         t.Fill()
 t.Branch( 'Caxis', Caxis, 'Caxis/i' )
 # for i in my_vector:
