@@ -124,7 +124,7 @@ for filename in os.listdir(in_folder):
                 Time.append(time)
                 TrigNumber.append(TrigNumber_tmp)
                 # my_vector.push_back(Caxis_tmp)
-                my_vector.append(Caxis_tmp)
+#                 my_vector.append(Caxis_tmp)
 
 
 
