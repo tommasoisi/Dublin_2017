@@ -75,7 +75,7 @@ for filename in os.listdir(in_folder):
         TimeDiv, scrap9, scrap10, scrap11, scrap12 = line.split(" ")
         continue 
                 
-TotData = filenumber*sampleNum*totTrig
+TotData = int(filenumber)*int(sampleNum)*int(totTrig)
 
 Caxis = array( 'i', [ TotData ] )  
 t.Branch( 'Caxis', Caxis, 'Caxis/i' )
