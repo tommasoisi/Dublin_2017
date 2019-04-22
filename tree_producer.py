@@ -74,7 +74,7 @@ maxn = 10
 
 # Caxis = array( 'I', [ filenumber ] )
 
-l = 0 
+int l = 0 
 
 for filename in os.listdir(in_folder):
     TrigNumber_tmp=1
