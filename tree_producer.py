@@ -164,7 +164,7 @@ TrigNumber = [int(i) for i in TrigNumber]
 Time = [float(i) for i in Time]
 Aaxis_tmp = [int(i) for i in Aaxis]
 Baxis_tmp = [int(i) for i in Baxis]
-Caxis_array[i] = [int(i) for i in Caxis]
+Caxis_array= [int(i) for i in Caxis]
 
 # print(Caxis)
 
