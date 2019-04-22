@@ -79,7 +79,6 @@ TotData = int(filenumber)*int(sampleNum)*int(totTrig)
 print(TotData)
 
 TrigNumber = [] 
-Caxis = array( 'i', [ TotData ] )  
 t.Branch( 'Caxis', Caxis, 'Caxis/i' )
 
 
