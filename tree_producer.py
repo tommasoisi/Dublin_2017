@@ -74,7 +74,7 @@ maxn = 10
 
 # Caxis = array( 'I', [ filenumber ] )
 
-int l = 0 
+l = 0 
 
 for filename in os.listdir(in_folder):
     TrigNumber_tmp=1
@@ -91,8 +91,8 @@ for filename in os.listdir(in_folder):
         # t.Branch( 'Aaxis', Aaxis, 'A' )
         Baxis.append(Baxis_tmp)
         Caxis.append(Caxis_tmp)
-        Caxis_array[l] = Caxis_tmp
         Caxis_tmp = int(Caxis_tmp)
+        Caxis_array[l] = Caxis_tmp
         l = l + 1 
 
         line = fh.readline()
