@@ -97,11 +97,11 @@ for filename in os.listdir(in_folder):
 
             #if the line doesen't contain text
             if not any(c.isalpha() for c in line):
-                Voltage.append(line)
+                Voltage.append(float(line))
                 Caxis.append(Caxis_tmp)
                 print(Caxis_tmp)
                 time = time + TimeDiv
-                Time.append(time)
+                Time.append(float(time))
                 TrigNumber.append(TrigNumber_tmp)
                 t.Fill()
                 
