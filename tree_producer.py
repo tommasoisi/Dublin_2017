@@ -76,6 +76,7 @@ for filename in os.listdir(in_folder):
         continue 
                 
 TotData = int(filenumber)*int(sampleNum)*int(totTrig)
+print(TotData)
 
 TrigNumber = [] 
 Caxis = array( 'i', [ TotData ] )  
@@ -116,6 +117,7 @@ for filename in os.listdir(in_folder):
                 TrigNumber.append(TrigNumber_tmp)
                 # my_vector.push_back(Caxis_tmp)
 #                 my_vector.append(Caxis_tmp)
+                print(l)
                 l = l + 1 
 
 
