@@ -158,7 +158,7 @@ for filename in os.listdir(in_folder):
 
 
 
-# Caxis_array = np.asarray(Caxis)
+Caxis_array = np.asarray(Caxis)
 Voltage = [float(i) for i in Voltage]
 TrigNumber = [int(i) for i in TrigNumber]
 Time = [float(i) for i in Time]
