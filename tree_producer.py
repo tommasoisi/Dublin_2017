@@ -119,13 +119,14 @@ for filename in os.listdir(in_folder):
 #                 my_vector.append(Caxis_tmp)
 #                 print(l)
                 l = l + 1 
+                t.Fill()
+
 
 
             else:
                 for j in range (1):
                     fh.readline()
 
-        t.Fill()
         fh.close()
 
     else:
