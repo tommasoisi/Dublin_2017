@@ -50,7 +50,7 @@ for filename in os.listdir(in_folder):
     if not os.path.exists(out_folder):
         os.makedirs(out_folder)
 
-
+Caxis = array('i')
 # Caxis_array = array( 'i', [filenumber] )
 f = TFile( outputfile, 'recreate' )
 t = TTree( 'pulse', 'Test beam samples' )
@@ -111,7 +111,7 @@ for filename in os.listdir(in_folder):
 
             if not any(c.isalpha() for c in line):
 #                 Voltage.append(line)
-                Caxis[l] = (Caxis_tmp)
+                Caxis.append(Caxis_tmp)
                 time = time + TimeDiv
                 Time.append(time)
                 TrigNumber.append(TrigNumber_tmp)
