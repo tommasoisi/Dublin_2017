@@ -49,14 +49,18 @@ for filename in os.listdir(in_folder):
 
     if not os.path.exists(out_folder):
         os.makedirs(out_folder)
-
+        
+TrigNumber = array('i')
+Aaxis = array('i')
+Baxis = array('i')
 Caxis = array('i')
-# Caxis_array = array( 'i', [filenumber] )
+Voltage = array('f')
+Time = array('f') 
+
 f = TFile( outputfile, 'recreate' )
 t = TTree( 'pulse', 'Test beam samples' )
+t.Branch( 'Caxis', Caxis, 'Caxis/i' )
 
-
-l = 0 
 
 for filename in os.listdir(in_folder):
     TrigNumber_tmp=1
@@ -67,39 +71,22 @@ for filename in os.listdir(in_folder):
         
         # Split the headers and extract the useful info
         fh = open(filename)
+        
+        Caxis_tmp=Caxis_tmp.replace('.dat','')
+        Caxis_tmp = int(Caxis_tmp)       
+        
         line = fh.readline()
         totTrig, scrap1, scrap2, scrap3 = line.split(" ")
         line = fh.readline()
         sampleNum, scrap4, scrap5, scrap6, scrap7, scrap8 = line.split(" ")
         line = fh.readline()
         TimeDiv, scrap9, scrap10, scrap11, scrap12 = line.split(" ")
-        continue 
-                
-TotData = int(filenumber)*int(sampleNum)*int(totTrig)
-print(TotData)
-
-TrigNumber = [] 
-t.Branch( 'Caxis', Caxis, 'Caxis/i' )
-
-
-for filename in os.listdir(in_folder):   
-    if filename.endswith(".dat"):
-        header, name, energy, HV, position, Aaxis_tmp, Baxis_tmp,Caxis_tmp = filename.split("_")
-        fh = open(filename)
-        Caxis_tmp=Caxis_tmp.replace('.dat','')
-        Caxis_tmp = int(Caxis_tmp)        
-        
-        # Split the headers and extract the usual info
-        line = fh.readline()
-        line = fh.readline()
-        line = fh.readline()
-               
+    
         time = 0.0
         TimeDiv = float(TimeDiv)
         sampleNum = int(sampleNum)
         totTrig = int(totTrig)
-        TrigNumber_tmp = 0.0
-        Time=[]
+        TrigNumber_tmp = 0
         
         while True:
             # read line
@@ -108,20 +95,16 @@ for filename in os.listdir(in_folder):
             if not line:
                 break
 
+            #if the line doesen't contain text
             if not any(c.isalpha() for c in line):
-#                 Voltage.append(line)
+                Voltage.append(line)
                 Caxis.append(Caxis_tmp)
+                print(Caxis_tmp)
                 time = time + TimeDiv
                 Time.append(time)
                 TrigNumber.append(TrigNumber_tmp)
-                # my_vector.push_back(Caxis_tmp)
-#                 my_vector.append(Caxis_tmp)
-#                 print(l)
-                l = l + 1 
                 t.Fill()
-
-
-
+                
             else:
                 for j in range (1):
                     fh.readline()
@@ -131,24 +114,6 @@ for filename in os.listdir(in_folder):
     else:
         continue
 
-
-
-
-# Caxis_array = np.asarray(Caxis)
-# Voltage = [float(i) for i in Voltage]
-# TrigNumber = [int(i) for i in TrigNumber]
-# Time = [float(i) for i in Time]
-# Aaxis_tmp = [int(i) for i in Aaxis]
-# Baxis_tmp = [int(i) for i in Baxis]
-# Caxis_array= [int(i) for i in Caxis]
-
-
-# my_vector = vec
-# print(my_vector)
-print(Caxis)
-
-# for i in my_vector:
+# Write in the output root file
 f.Write()
 f.Close()
-
-# print(TrigNumber_tmp)
