@@ -59,9 +59,11 @@ Baxis=[]
 Caxis=[]
 
 
-
+ Caxis_array = array( 'i', [ 0] )
 f = TFile( outputfile, 'recreate' )
 t = TTree( 'pulse', 'Test beam samples' )
+t.Branch( 'Caxis', Caxis_array, 'Caxis/i' )
+
 
 maxn = 10
 # n = array( 'i', filenumber[ filenumber ] )
@@ -71,6 +73,8 @@ maxn = 10
 # t.Branch( 'mynum', Caxis_array, 'mynum/I' )
 
 # Caxis = array( 'I', [ filenumber ] )
+
+l = 0 
 
 for filename in os.listdir(in_folder):
     TrigNumber_tmp=1
@@ -87,9 +91,9 @@ for filename in os.listdir(in_folder):
         # t.Branch( 'Aaxis', Aaxis, 'A' )
         Baxis.append(Baxis_tmp)
         Caxis.append(Caxis_tmp)
-
+        Caxis_array[l] = Caxis_tmp
         Caxis_tmp = int(Caxis_tmp)
-
+        l = l + 1 
 
         line = fh.readline()
         totTrig, scrap1, scrap2, scrap3 = line.split(" ")
@@ -158,13 +162,13 @@ for filename in os.listdir(in_folder):
 
 
 
-Caxis_array = np.asarray(Caxis)
+# Caxis_array = np.asarray(Caxis)
 Voltage = [float(i) for i in Voltage]
 TrigNumber = [int(i) for i in TrigNumber]
 Time = [float(i) for i in Time]
 Aaxis_tmp = [int(i) for i in Aaxis]
 Baxis_tmp = [int(i) for i in Baxis]
-Caxis_array= [int(i) for i in Caxis]
+# Caxis_array= [int(i) for i in Caxis]
 
 # print(Caxis)
 
@@ -197,10 +201,8 @@ Caxis_array= [int(i) for i in Caxis]
 # my_vector = vec
 # print(my_vector)
 print(Caxis_array)
-t.Branch( 'Caxis', Caxis_array, 'Caxis/i' )
 
 # for i in my_vector:
-t.Fill()
 f.Write()
 f.Close()
 
