@@ -58,7 +58,7 @@ Voltage = array('f')
 Time = array('f') 
 
 f = TFile( outputfile, 'recreate' )
-t = TTree( 'pulse', 'Test beam samples' )
+t = TTree( 'ttree', 'Test beam samples' )
 t.Branch( 'Caxis', Caxis, 'Caxis/i' )
 
 
