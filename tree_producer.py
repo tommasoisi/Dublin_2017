@@ -197,7 +197,7 @@ Caxis_array= [int(i) for i in Caxis]
 # my_vector = vec
 # print(my_vector)
 print(Caxis_array)
-t.Branch( 'Caxis', Caxis_array, 'Caxis/I' )
+t.Branch( 'Caxis', Caxis_array, 'Caxis/i' )
 
 # for i in my_vector:
 t.Fill()
