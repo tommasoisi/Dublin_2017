@@ -54,7 +54,7 @@ for filename in os.listdir(in_folder):
         
  
 
-# my_vector = ROOT.vector('int')()
+my_vector = ROOT.vector('int')()
 # my_vector = ROOT.vector('int')(2)
 
 
@@ -68,11 +68,13 @@ f = TFile( outputfile, 'recreate' )
 t = TTree( 'pulse', 'Test beam samples' )
 
 maxn = 10
-n = array( 'i', [ filenumber ] )
+n = array( 'i', filenumber[ filenumber ] )
 d = array( 'f', maxn*[ 0. ] )
 # t.Branch( 'Caxis', Caxis, 'Caxis/I')
 # t.Branch( 'mynum', n, 'mynum/I' )
 t.Branch( 'myval', d, 'myval[mynum]/F' )
+t.Branch( 'mynum', my_vector, 'mynum/I' )
+
 
 for filename in os.listdir(in_folder):
     TrigNumber_tmp=1
@@ -126,7 +128,7 @@ for filename in os.listdir(in_folder):
                 Time.append(time)
                 TrigNumber.append(TrigNumber_tmp)
                 # my_vector.push_back(Caxis_tmp)
-                Caxis.append(Caxis_tmp)
+                my_vector.append(Caxis_tmp)
 
 
 
@@ -166,8 +168,7 @@ TrigNumber = [int(i) for i in TrigNumber]
 Time = [float(i) for i in Time]
 Aaxis_tmp = [int(i) for i in Aaxis]
 Baxis_tmp = [int(i) for i in Baxis]
-Caxis = [int(i) for i in Caxis]
-t.Branch( 'mynum', n, 'mynum/I' )
+Caxis_array[i] = [int(i) for i in Caxis]
 
 # print(Caxis)
 
