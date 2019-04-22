@@ -51,17 +51,12 @@ for filename in os.listdir(in_folder):
 
     if not os.path.exists(out_folder):
         os.makedirs(out_folder)
-        
- 
 
-my_vector = ROOT.vector('int')()
-# my_vector = ROOT.vector('int')(2)
 
 
 Aaxis=[]
 Baxis=[]
-Caxis=[]
-# my_vector = ROOT.vector('int')()
+
 
 
 f = TFile( outputfile, 'recreate' )
@@ -69,12 +64,12 @@ t = TTree( 'pulse', 'Test beam samples' )
 
 maxn = 10
 # n = array( 'i', filenumber[ filenumber ] )
-d = array( 'f', maxn*[ 0. ] )
 # t.Branch( 'Caxis', Caxis, 'Caxis/I')
 # t.Branch( 'mynum', n, 'mynum/I' )
 t.Branch( 'myval', d, 'myval[mynum]/F' )
-t.Branch( 'mynum', my_vector, 'mynum/I' )
+# t.Branch( 'mynum', Caxis_array, 'mynum/I' )
 
+# Caxis = array( 'I', [ filenumber ] )
 
 for filename in os.listdir(in_folder):
     TrigNumber_tmp=1
@@ -145,7 +140,6 @@ for filename in os.listdir(in_folder):
         print(len(TrigNumber))
         print(len(Voltage))
         print(len(Time))
-
         t.Fill()
 
         # print(Time)
@@ -163,12 +157,13 @@ for filename in os.listdir(in_folder):
 
 
 
+Caxis_array = np.asarray(Caxis)
 Voltage = [float(i) for i in Voltage]
 TrigNumber = [int(i) for i in TrigNumber]
 Time = [float(i) for i in Time]
 Aaxis_tmp = [int(i) for i in Aaxis]
 Baxis_tmp = [int(i) for i in Baxis]
-Caxis_array[i] = [int(i) for i in Caxis]
+# Caxis_array[i] = [int(i) for i in Caxis]
 
 # print(Caxis)
 
@@ -201,10 +196,10 @@ Caxis_array[i] = [int(i) for i in Caxis]
 # my_vector = vec
 # print(my_vector)
 
-
+t.Branch( 'Caxis', Caxis_array, 'mynum/I' )
 
 # for i in my_vector:
-
+t.fill()
 f.Write()
 f.Close()
 
