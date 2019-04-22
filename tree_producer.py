@@ -30,7 +30,7 @@ parser = argparse.ArgumentParser(description='Run info.')
 parser.add_argument('--path', metavar='path', type=str, help='Path to the input file',required=True)
 args = parser.parse_args()
 
-# Declare Input folder
+# Declare Input folder and list the filenumber 
 in_folder = str(args.path)
 filenumber=(len(glob.glob1(in_folder,"*.dat")))
 
@@ -38,8 +38,6 @@ filenumber=(len(glob.glob1(in_folder,"*.dat")))
 os.chdir(in_folder)
 
 # Declare the output file name and path
-
-
 for filename in os.listdir(in_folder):
         # Parsing the info of the input file's name
     if filename.endswith(".dat"):
@@ -53,107 +51,78 @@ for filename in os.listdir(in_folder):
         os.makedirs(out_folder)
 
 
-
-Aaxis=[]
-Baxis=[]
-Caxis=[]
-
-
 # Caxis_array = array( 'i', [filenumber] )
 f = TFile( outputfile, 'recreate' )
 t = TTree( 'pulse', 'Test beam samples' )
 
-
-
-maxn = 10
-# n = array( 'i', filenumber[ filenumber ] )
-# t.Branch( 'Caxis', Caxis, 'Caxis/I')
-# t.Branch( 'mynum', n, 'mynum/I' )
-# t.Branch( 'myval', d, 'myval[mynum]/F' )
-# t.Branch( 'mynum', Caxis_array, 'mynum/I' )
-
-# Caxis = array( 'I', [ filenumber ] )
 
 l = 0 
 
 for filename in os.listdir(in_folder):
     TrigNumber_tmp=1
 
-        # Parsing the info of the input file's name
+    # Parsing the info of the input file's name
     if filename.endswith(".dat"):
         header, name, energy, HV, position, Aaxis_tmp, Baxis_tmp,Caxis_tmp = filename.split("_")
-
+        
+        # Split the headers and extract the useful info
         fh = open(filename)
-
-
-        Caxis_tmp=Caxis_tmp.replace('.dat','')
-        Aaxis.append(Aaxis_tmp)
-        # t.Branch( 'Aaxis', Aaxis, 'A' )
-        Baxis.append(Baxis_tmp)
-        Caxis.append(Caxis_tmp)
-        Caxis_tmp = int(Caxis_tmp)
-#         Caxis_array[l] = Caxis_tmp
-#         l = l + 1 
-
         line = fh.readline()
         totTrig, scrap1, scrap2, scrap3 = line.split(" ")
         line = fh.readline()
         sampleNum, scrap4, scrap5, scrap6, scrap7, scrap8 = line.split(" ")
         line = fh.readline()
         TimeDiv, scrap9, scrap10, scrap11, scrap12 = line.split(" ")
+        continue 
+                
+TotData = filenumber*sampleNum*totTrig
 
+Caxis = array( 'i', [ TotData ] )  
+t.Branch( 'Caxis', Caxis, 'Caxis/i' )
+
+
+for filename in os.listdir(in_folder):   
+    if filename.endswith(".dat"):
+        header, name, energy, HV, position, Aaxis_tmp, Baxis_tmp,Caxis_tmp = filename.split("_")
+        fh = open(filename)
+        Caxis_tmp=Caxis_tmp.replace('.dat','')
+        Caxis_tmp = int(Caxis_tmp)        
+        
+        # Split the headers and extract the usual info
+        line = fh.readline()
+        line = fh.readline()
+        line = fh.readline()
+               
         time = 0.0
         TimeDiv = float(TimeDiv)
         sampleNum = int(sampleNum)
         totTrig = int(totTrig)
-        Voltage = []
         TrigNumber_tmp = 0.0
-
-        # my_vector.push_back(Caxis_tmp)
         Time=[]
-        print(Caxis_tmp)
-        TrigNumber=[]
-
+        
         while True:
             # read line
             line = fh.readline()
-            trigUpdate = False
             # check if line is not empty
             if not line:
                 break
 
             if not any(c.isalpha() for c in line):
-                Voltage.append(line)
+#                 Voltage.append(line)
+                Caxis[l] = (Caxis_tmp)
                 time = time + TimeDiv
                 Time.append(time)
                 TrigNumber.append(TrigNumber_tmp)
                 # my_vector.push_back(Caxis_tmp)
 #                 my_vector.append(Caxis_tmp)
-
+                l = l + 1 
 
 
             else:
                 for j in range (1):
                     fh.readline()
-                # if trigUpdate == False:
-                #     TrigNumber_tmp = TrigNumber_tmp + 1
-                #     time = 0.0
-                #     trigUpdate = True
 
-
-        # print(len(my_vector))
-        print(len(TrigNumber))
-        print(len(Voltage))
-        print(len(Time))
-#         t.Fill()
-
-        # print(Time)
-
-        # t.Branch( 'channel', channel, 'channel[4][1000]/F' )
-        # t.Branch( 'time', time, 'time[1][1000]/F')
-
-        # 25000 Number of samples per trigger
-        # 2.5000000000e-010 Time division in seconds
+        t.Fill()
         fh.close()
 
     else:
@@ -170,40 +139,11 @@ Aaxis_tmp = [int(i) for i in Aaxis]
 Baxis_tmp = [int(i) for i in Baxis]
 # Caxis_array= [int(i) for i in Caxis]
 
-# print(Caxis)
-
-# print(my_vector)
-
-#vec = np.asarray(Caxis)
-#ciccio = array2root(vec, name ='ciccio')
-#array2root(vec,'test.root','ciccio')
-
-#
-# pulse = array2tree(array, name='pulse')
-# array2root(array,'test3.root','pulse')
-#
-
-#
-# while i < len(Caxis):
-#     my_vector.push_back(Caxis[i])
-#     i = i+1
-# Caxis_vec = [int(i) for i in Caxis]
-
-# for i in Caxis:
-#     my_vector.push_back(Caxis[i])
-
-# while i < len(Caxis) :
-#     my_vector.push_back(Caxis[i])
-#     i += 1
-Caxis = ROOT.vector('int')(len(Caxis))
-
 
 # my_vector = vec
 # print(my_vector)
 print(Caxis)
-for i in Caxis:         
-        t.Fill()
-t.Branch( 'Caxis', Caxis, 'Caxis/i' )
+
 # for i in my_vector:
 f.Write()
 f.Close()
