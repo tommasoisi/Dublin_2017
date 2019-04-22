@@ -198,7 +198,7 @@ Baxis_tmp = [int(i) for i in Baxis]
 # print(my_vector)
 
 t.Branch( 'Caxis', Caxis_array, 'mynum/I' )
-
+print(Caxis_array)
 # for i in my_vector:
 t.Fill()
 f.Write()
