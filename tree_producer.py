@@ -103,7 +103,6 @@ for filename in os.listdir(in_folder):
                 time = time + TimeDiv
                 Time.append(float(time))
                 TrigNumber.append(TrigNumber_tmp)
-                t.Fill()
                 
             else:
                 for j in range (1):
@@ -113,6 +112,8 @@ for filename in os.listdir(in_folder):
 
     else:
         continue
+  
+t.Fill()
 
 # Write in the output root file
 f.Write()
