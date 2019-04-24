@@ -30,7 +30,7 @@ parser = argparse.ArgumentParser(description='Run info.')
 parser.add_argument('--path', metavar='path', type=str, help='Path to the input file',required=True)
 args = parser.parse_args()
 
-# Declare Input folder and list the filenumber 
+# Declare Input folder and list the filenumber
 in_folder = str(args.path)
 filenumber=(len(glob.glob1(in_folder,"*.dat")))
 
@@ -49,17 +49,25 @@ for filename in os.listdir(in_folder):
 
     if not os.path.exists(out_folder):
         os.makedirs(out_folder)
-        
-TrigNumber = array('i')
-Aaxis = array('i')
-Baxis = array('i')
-Caxis = array('i')
-Voltage = array('f')
-Time = array('f') 
+
+TrigNumber = np.zeros(1,dtype=np.dtype("u4"))
+Aaxis = np.zeros(1,dtype=np.dtype("u4"))
+Baxis = np.zeros(1,dtype=np.dtype("u4"))
+Caxis = np.zeros(1,dtype=np.dtype("u4"))
+SampleNum = 0
 
 f = TFile( outputfile, 'recreate' )
 t = TTree( 'ttree', 'Test beam samples' )
+t.Branch( 'Aaxis', Aaxis, 'Aaxis/i' )
+t.Branch( 'Baxis', Baxis, 'Baxis/i' )
 t.Branch( 'Caxis', Caxis, 'Caxis/i' )
+t.Branch( 'TrigNumber', TrigNumber, 'TrigNumber/i' )
+
+SamplesNumber = 25000
+Voltage = np.zeros(SamplesNumber,dtype=np.float32)
+Time = np.zeros(SamplesNumber,dtype=np.float32)
+t.Branch( 'time', Time, 'time[{}]/F'.format(SamplesNumber))
+t.Branch( 'voltage', Voltage, 'voltage[{}]/F'.format(SamplesNumber))
 
 
 for filename in os.listdir(in_folder):
@@ -68,26 +76,29 @@ for filename in os.listdir(in_folder):
     # Parsing the info of the input file's name
     if filename.endswith(".dat"):
         header, name, energy, HV, position, Aaxis_tmp, Baxis_tmp,Caxis_tmp = filename.split("_")
-        
+
         # Split the headers and extract the useful info
         fh = open(filename)
-        
+
         Caxis_tmp=Caxis_tmp.replace('.dat','')
-        Caxis_tmp = int(Caxis_tmp)       
-        
+        Caxis = int(Caxis_tmp)
+
         line = fh.readline()
         totTrig, scrap1, scrap2, scrap3 = line.split(" ")
         line = fh.readline()
-        sampleNum, scrap4, scrap5, scrap6, scrap7, scrap8 = line.split(" ")
+        numberOfSamples, scrap4, scrap5, scrap6, scrap7, scrap8 = line.split(" ")
         line = fh.readline()
         TimeDiv, scrap9, scrap10, scrap11, scrap12 = line.split(" ")
-    
+
         time = 0.0
         TimeDiv = float(TimeDiv)
-        sampleNum = int(sampleNum)
         totTrig = int(totTrig)
-        TrigNumber_tmp = 0
-        
+        for i,tt in enumerate(np.linspace(0,(SamplesNumber-1)*TimeDiv,SamplesNumber)):
+            Time[i] = tt
+
+        if int(numberOfSamples) != SamplesNumber:
+            print('Strange numberOfSamples: {}'.format(numberOfSamples))
+
         while True:
             # read line
             line = fh.readline()
@@ -97,23 +108,24 @@ for filename in os.listdir(in_folder):
 
             #if the line doesen't contain text
             if not any(c.isalpha() for c in line):
-                Voltage.append(float(line))
-                Caxis.append(Caxis_tmp)
-                print(Caxis_tmp)
-                time = time + TimeDiv
-                Time.append(float(time))
-                TrigNumber.append(TrigNumber_tmp)
-                
+                if SampleNum < Voltage.size:
+                    Voltage[SampleNum] = float(line)
+                    SampleNum += 1
             else:
-                for j in range (1):
-                    fh.readline()
-                
-        t.Fill()
+                if SampleNum == SamplesNumber:
+                    SampleNum = 0
+                    t.Fill()
+                    TrigNumber += 1
+                elif SampleNum > 0:
+                    print('Strange SampleNum: {}'.format(SampleNum))
+                fh.readline()
+
+
         fh.close()
 
     else:
         continue
-  
+
 
 # Write in the output root file
 f.Write()
