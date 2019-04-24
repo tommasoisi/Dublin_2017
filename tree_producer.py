@@ -67,7 +67,7 @@ SamplesNumber = 25000
 Voltage = np.zeros(SamplesNumber,dtype=np.float32)
 Time = np.zeros(SamplesNumber,dtype=np.float32)
 t.Branch( 'Time', Time, 'time[{}]/F'.format(SamplesNumber))
-t.Branch( 'voltage', Voltage, 'voltage[{}]/F'.format(SamplesNumber))
+t.Branch( 'Voltage', Voltage, 'voltage[{}]/F'.format(SamplesNumber))
 
 
 for filename in os.listdir(in_folder):
