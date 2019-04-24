@@ -66,7 +66,7 @@ t.Branch( 'TrigNumber', TrigNumber, 'TrigNumber/i' )
 SamplesNumber = 25000
 Voltage = np.zeros(SamplesNumber,dtype=np.float32)
 Time = np.zeros(SamplesNumber,dtype=np.float32)
-t.Branch( 'time', Time, 'time[{}]/F'.format(SamplesNumber))
+t.Branch( 'Time', Time, 'time[{}]/F'.format(SamplesNumber))
 t.Branch( 'voltage', Voltage, 'voltage[{}]/F'.format(SamplesNumber))
 
 
