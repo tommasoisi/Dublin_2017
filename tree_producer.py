@@ -121,6 +121,7 @@ for filename in os.listdir(in_folder):
                 fh.readline()
 
 
+        t.Fill()
         fh.close()
 
     else:
