@@ -107,13 +107,13 @@ for filename in os.listdir(in_folder):
             else:
                 for j in range (1):
                     fh.readline()
-
+                
+        t.Fill()
         fh.close()
 
     else:
         continue
   
-t.Fill()
 
 # Write in the output root file
 f.Write()
