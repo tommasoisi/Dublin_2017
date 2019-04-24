@@ -61,7 +61,7 @@ t = TTree( 'ttree', 'Test beam samples' )
 t.Branch( 'Aaxis', Aaxis, 'Aaxis/Float_t' )
 t.Branch( 'Baxis', Baxis, 'Baxis/Float_t' )
 t.Branch( 'Caxis', Caxis, 'Caxis/Float_t' )
-t.Branch( 'TrigNumber', TrigNumber, 'TrigNumber/UInt_t' )
+t.Branch( 'TrigNumber', TrigNumber, 'TrigNumber/i' )
 
 SamplesNumber = 25000
 Voltage = np.zeros(SamplesNumber,dtype=np.float32)
