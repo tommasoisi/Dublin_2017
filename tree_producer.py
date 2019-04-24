@@ -58,15 +58,15 @@ SampleNum = 0
 
 f = TFile( outputfile, 'recreate' )
 t = TTree( 'ttree', 'Test beam samples' )
-t.Branch( 'Aaxis', Aaxis, 'Aaxis/i' )
-t.Branch( 'Baxis', Baxis, 'Baxis/i' )
-t.Branch( 'Caxis', Caxis, 'Caxis/i' )
-t.Branch( 'TrigNumber', TrigNumber, 'TrigNumber/i' )
+t.Branch( 'Aaxis', Aaxis, 'Aaxis/Float_t' )
+t.Branch( 'Baxis', Baxis, 'Baxis/Float_t' )
+t.Branch( 'Caxis', Caxis, 'Caxis/Float_t' )
+t.Branch( 'TrigNumber', TrigNumber, 'TrigNumber/UInt_t' )
 
 SamplesNumber = 25000
 Voltage = np.zeros(SamplesNumber,dtype=np.float32)
 Time = np.zeros(SamplesNumber,dtype=np.float32)
-t.Branch( 'Time', Time, 'time[{}]/F'.format(SamplesNumber))
+t.Branch( 'Time', Time, 'time[{}]/Float_t'.format(SamplesNumber))
 t.Branch( 'Voltage', Voltage, 'voltage[{}]/Float_t'.format(SamplesNumber))
 
 
