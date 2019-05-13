@@ -43,7 +43,7 @@ for filename in os.listdir(in_folder):
     if filename.endswith(".dat"):
         header, name, energy, HV, position, Aaxis_tmp, Baxis_tmp,Caxis_tmp = filename.split("_")
 
-    out_folder = "tree_produced"
+    out_folder = "."
     out_name = name + ("_") + energy + ("_") + HV + ("_v1")
     outputfile = in_folder + '/%s/%s.root'%(out_folder,out_name)
 
