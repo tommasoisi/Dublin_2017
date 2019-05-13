@@ -43,9 +43,9 @@ for filename in os.listdir(in_folder):
     if filename.endswith(".dat"):
         header, name, energy, HV, position, Aaxis_tmp, Baxis_tmp,Caxis_tmp = filename.split("_")
 
-    out_folder = ""
+    out_folder = "tree_produced"
     out_name = name + ("_") + energy + ("_") + HV + ("_v1")
-    outputfile = in_folder + '/%s/%s.root'%(out_folder,out_name)
+    outputfile = in_folder + '%s/%s.root'%(out_folder,out_name)
 
     if not os.path.exists(out_folder):
         os.makedirs(out_folder)
