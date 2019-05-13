@@ -53,7 +53,7 @@ for filename in os.listdir(in_folder):
 TrigNumber = np.zeros(1,dtype=np.dtype("u4"))
 Aaxis = np.zeros(1,dtype=np.dtype("u4"))
 Baxis = np.zeros(1,dtype=np.dtype("u4"))
-Caxis = np.zeros(1,dtype=np.dtype("u4"))
+Caxis = np.zeros([filenumber],dtype=np.dtype("u4"))
 SampleNum = 0
 
 f = TFile( outputfile, 'recreate' )
