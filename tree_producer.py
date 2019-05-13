@@ -84,7 +84,8 @@ for filename in os.listdir(in_folder):
 
         Caxis_tmp=Caxis_tmp.replace('.dat','')
         Caxis = int(Caxis_tmp)
-
+        print(Caxis_tmp)
+        
         line = fh.readline()
         totTrig, scrap1, scrap2, scrap3 = line.split(" ")
         line = fh.readline()
@@ -116,7 +117,7 @@ for filename in os.listdir(in_folder):
             else:
                 if SampleNum == SamplesNumber:
                     SampleNum = 0
-                    t.Fill()
+#                     t.Fill()
                     TrigNumber += 1
                 elif SampleNum > 0:
                     print('Strange SampleNum: {}'.format(SampleNum))
