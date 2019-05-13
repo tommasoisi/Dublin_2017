@@ -44,7 +44,7 @@ for filename in os.listdir(in_folder):
         header, name, energy, HV, position, Aaxis_tmp, Baxis_tmp,Caxis_tmp = filename.split("_")
 
     out_folder = "tree_produced"
-    out_name = name + ("_") + energy + ("_") + HV + ("_") + ("_v1")
+    out_name = name + ("_") + energy + ("_") + HV + ("_v1")
     outputfile = in_folder + '/%s/%s.root'%(out_folder,out_name)
 
     if not os.path.exists(out_folder):
@@ -55,6 +55,8 @@ Aaxis = np.zeros(1,dtype=np.dtype("u4"))
 Baxis = np.zeros(1,dtype=np.dtype("u4"))
 Caxis = np.zeros([filenumber],dtype=np.dtype("u4"))
 SampleNum = 0
+
+print(len(Caxis))
 
 f = TFile( outputfile, 'recreate' )
 t = TTree( 'ttree', 'Test beam samples' )
