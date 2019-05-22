@@ -51,18 +51,18 @@ for filename in os.listdir(in_folder):
         os.makedirs(out_folder)
 
 TrigNumber = np.zeros(1,dtype=np.dtype("u4"))
-Aaxis = np.zeros(1,dtype=np.dtype("u4"))
-Baxis = np.zeros(1,dtype=np.dtype("u4"))
-Caxis = np.zeros([filenumber],dtype=np.dtype("u4"))
+Aaxis = np.zeros(1,dtype=np.dtype("i4"))
+Baxis = np.zeros(1,dtype=np.dtype("i4"))
+Caxis = np.zeros(1,dtype=np.dtype("i4"))
 SampleNum = 0
 
 print(len(Caxis))
 
 f = TFile( outputfile, 'recreate' )
 t = TTree( 'ttree', 'Test beam samples' )
-t.Branch( 'Aaxis', Aaxis, 'Aaxis/Float_t' )
-t.Branch( 'Baxis', Baxis, 'Baxis/Float_t' )
-t.Branch( 'Caxis', Caxis, 'Caxis/Float_t' )
+t.Branch( 'Aaxis', Aaxis, 'Aaxis/I' )
+t.Branch( 'Baxis', Baxis, 'Baxis/I' )
+t.Branch( 'Caxis', Caxis, 'Caxis/I' )
 t.Branch( 'TrigNumber', TrigNumber, 'TrigNumber/i' )
 
 SamplesNumber = 25000
