@@ -23,14 +23,23 @@ import re
 import os
 # from ROOT import TFile, TTree
 
-# Declare Input folder and list the filenumber
-in_folder = "./"
-filenumber=(len(glob.glob1(in_folder,"*.dat")))
+
+
+
+# The code requires the complete input folder directory to run
+parser = argparse.ArgumentParser(description='Run info.')
+parser.add_argument('--path', metavar='path', type=str, help='Path to the input file',required=True)
+args = parser.parse_args()
+
+# Declare Input folder
+in_folder = str(args.path)
 
 # Open input folder
 os.chdir(in_folder)
 
 # Declare the output file name and path
+
+
 for filename in os.listdir(in_folder):
         # Parsing the info of the input file's name
     if filename.endswith(".dat"):
@@ -39,11 +48,12 @@ for filename in os.listdir(in_folder):
         continue
 
     out_folder = "tree_produced"
-    out_name = name + ("_") + energy + ("_") + HV + ("_v1")
-    outputfile = in_folder + '%s/%s.root'%(out_folder,out_name)
+    out_name = name + ("_") + energy + ("_") + HV + ("_") + ("_v1")
+    outputfile = in_folder + '/%s/%s.root'%(out_folder,out_name)
 
     if not os.path.exists(out_folder):
         os.makedirs(out_folder)
+
 
 TrigNumber = np.zeros(1,dtype=np.int32)
 Aaxis = np.zeros(1,dtype=np.int32)
