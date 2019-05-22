@@ -23,15 +23,8 @@ import re
 import os
 # from ROOT import TFile, TTree
 
-
-
-# The code requires the complete input folder directory to run
-parser = argparse.ArgumentParser(description='Run info.')
-parser.add_argument('--path', metavar='path', type=str, help='Path to the input file',required=True)
-args = parser.parse_args()
-
 # Declare Input folder and list the filenumber
-in_folder = str(args.path)
+in_folder = "./"
 filenumber=(len(glob.glob1(in_folder,"*.dat")))
 
 # Open input folder
@@ -42,6 +35,8 @@ for filename in os.listdir(in_folder):
         # Parsing the info of the input file's name
     if filename.endswith(".dat"):
         header, name, energy, HV, position, Aaxis_tmp, Baxis_tmp,Caxis_tmp = filename.split("_")
+    else:
+        continue
 
     out_folder = "tree_produced"
     out_name = name + ("_") + energy + ("_") + HV + ("_v1")
@@ -50,10 +45,10 @@ for filename in os.listdir(in_folder):
     if not os.path.exists(out_folder):
         os.makedirs(out_folder)
 
-TrigNumber = np.zeros(1,dtype=np.dtype("u4"))
-Aaxis = np.zeros(1,dtype=np.dtype("i4"))
-Baxis = np.zeros(1,dtype=np.dtype("i4"))
-Caxis = np.zeros(1,dtype=np.dtype("i4"))
+TrigNumber = np.zeros(1,dtype=np.int32)
+Aaxis = np.zeros(1,dtype=np.int32)
+Baxis = np.zeros(1,dtype=np.int32)
+Caxis = np.zeros(1,dtype=np.int32)
 SampleNum = 0
 
 print(len(Caxis))
@@ -62,19 +57,16 @@ f = TFile( outputfile, 'recreate' )
 t = TTree( 'ttree', 'Test beam samples' )
 t.Branch( 'Aaxis', Aaxis, 'Aaxis/I' )
 t.Branch( 'Baxis', Baxis, 'Baxis/I' )
-t.Branch( 'Caxis', Caxis, 'Caxis/I' )
-t.Branch( 'TrigNumber', TrigNumber, 'TrigNumber/i' )
+t.Branch( 'Caxis', Caxis, 'Caxis[1]/I' )
+t.Branch( 'TrigNumber', TrigNumber, 'TrigNumber[1]/I' )
 
 SamplesNumber = 25000
 Voltage = np.zeros(SamplesNumber,dtype=np.float32)
 Time = np.zeros(SamplesNumber,dtype=np.float32)
-t.Branch( 'Time', Time, 'time[{}]/Float_t'.format(SamplesNumber))
-t.Branch( 'Voltage', Voltage, 'voltage[{}]/Float_t'.format(SamplesNumber))
-
+t.Branch( 'Time', Time, 'time[{}]/F'.format(SamplesNumber))
+t.Branch( 'Voltage', Voltage, 'voltage[{}]/F'.format(SamplesNumber))
 
 for filename in os.listdir(in_folder):
-    TrigNumber_tmp=1
-
     # Parsing the info of the input file's name
     if filename.endswith(".dat"):
         header, name, energy, HV, position, Aaxis_tmp, Baxis_tmp,Caxis_tmp = filename.split("_")
@@ -82,16 +74,20 @@ for filename in os.listdir(in_folder):
         # Split the headers and extract the useful info
         fh = open(filename)
 
+        TrigNumber[0] = 0
+        #TrigNumber = np.zeros(1,dtype=np.int32)
         Caxis_tmp=Caxis_tmp.replace('.dat','')
-        Caxis = int(Caxis_tmp)
-        print(Caxis_tmp)
+        Caxis[0] = int(Caxis_tmp)
+        print(f'{Caxis_tmp}  {TrigNumber}')
+        t.Branch( 'Caxis', Caxis, 'Caxis[1]/I' )
+        t.Branch( 'TrigNumber', TrigNumber, 'TrigNumber[1]/I' )
         
         line = fh.readline()
-        totTrig, scrap1, scrap2, scrap3 = line.split(" ")
+        totTrig, _, _, _ = line.split(" ")
         line = fh.readline()
-        numberOfSamples, scrap4, scrap5, scrap6, scrap7, scrap8 = line.split(" ")
+        numberOfSamples, _, _, _, _, _ = line.split(" ")
         line = fh.readline()
-        TimeDiv, scrap9, scrap10, scrap11, scrap12 = line.split(" ")
+        TimeDiv, _, _, _, _ = line.split(" ")
 
         time = 0.0
         TimeDiv = float(TimeDiv)
@@ -107,6 +103,7 @@ for filename in os.listdir(in_folder):
             line = fh.readline()
             # check if line is not empty
             if not line:
+                print('Strange line: {}'.format(line))
                 break
 
             #if the line doesen't contain text
@@ -117,13 +114,14 @@ for filename in os.listdir(in_folder):
             else:
                 if SampleNum == SamplesNumber:
                     SampleNum = 0
-#                     t.Fill()
+                    t.Fill()
                     TrigNumber += 1
+                    #print(f'Looping {Caxis_tmp}  {TrigNumber}')
                 elif SampleNum > 0:
                     print('Strange SampleNum: {}'.format(SampleNum))
                 fh.readline()
 
-
+        print(f'{Caxis_tmp}  {TrigNumber}')
         t.Fill()
         fh.close()
 
