@@ -88,7 +88,7 @@ for filename in os.listdir(in_folder):
         #TrigNumber = np.zeros(1,dtype=np.int32)
         Caxis_tmp=Caxis_tmp.replace('.dat','')
         Caxis[0] = int(Caxis_tmp)
-        print(f'{Caxis_tmp}  {TrigNumber}')
+        #print(f'{Caxis_tmp}  {TrigNumber}')
         t.Branch( 'Caxis', Caxis, 'Caxis[1]/I' )
         t.Branch( 'TrigNumber', TrigNumber, 'TrigNumber[1]/I' )
         
@@ -106,14 +106,14 @@ for filename in os.listdir(in_folder):
             Time[i] = tt
 
         if int(numberOfSamples) != SamplesNumber:
-            print('Strange numberOfSamples: {}'.format(numberOfSamples))
-
+            #print('Strange numberOfSamples: {}'.format(numberOfSamples))
+            print('ok')
         while True:
             # read line
             line = fh.readline()
             # check if line is not empty
             if not line:
-                print('Strange line: {}'.format(line))
+                #print('Strange line: {}'.format(line))
                 break
 
             #if the line doesen't contain text
@@ -131,7 +131,7 @@ for filename in os.listdir(in_folder):
                     print('Strange SampleNum: {}'.format(SampleNum))
                 fh.readline()
 
-        print(f'{Caxis_tmp}  {TrigNumber}')
+        #print(f'{Caxis_tmp}  {TrigNumber}')
         t.Fill()
         fh.close()
 
