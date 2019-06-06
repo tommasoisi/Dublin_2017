@@ -106,14 +106,13 @@ for filename in os.listdir(in_folder):
             Time[i] = tt
 
         if int(numberOfSamples) != SamplesNumber:
-            #print('Strange numberOfSamples: {}'.format(numberOfSamples))
-            print('ok')
+            print('Strange numberOfSamples: {}'.format(numberOfSamples))
         while True:
             # read line
             line = fh.readline()
             # check if line is not empty
             if not line:
-                #print('Strange line: {}'.format(line))
+                print('Strange line: {}'.format(line))
                 break
 
             #if the line doesen't contain text
@@ -126,12 +125,12 @@ for filename in os.listdir(in_folder):
                     SampleNum = 0
                     t.Fill()
                     TrigNumber += 1
-                    #print(f'Looping {Caxis_tmp}  {TrigNumber}')
+                    print('Looping -- Xaxis: {}  TrigNumber{}'.format(Caxis_tmp,TrigNumber))
                 elif SampleNum > 0:
                     print('Strange SampleNum: {}'.format(SampleNum))
                 fh.readline()
 
-        #print(f'{Caxis_tmp}  {TrigNumber}')
+        print('Looping -- Xaxis: {}  TrigNumber{}'.format(Caxis_tmp,TrigNumber))
         t.Fill()
         fh.close()
 
