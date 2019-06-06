@@ -73,8 +73,8 @@ t.Branch( 'TrigNumber', TrigNumber, 'TrigNumber[1]/I' )
 SamplesNumber = 25000
 Voltage = np.zeros(SamplesNumber,dtype=np.float)
 Time = np.zeros(SamplesNumber,dtype=np.float)
-t.Branch( 'Time', Time, 'time[{}]/F'.format(SamplesNumber))
-t.Branch( 'Voltage', Voltage, 'voltage[{}]/F'.format(SamplesNumber))
+t.Branch( 'Time', Time, 'time[{}]/f'.format(SamplesNumber))
+t.Branch( 'Voltage', Voltage, 'voltage[{}]/f'.format(SamplesNumber))
 
 for filename in os.listdir(in_folder):
     # Parsing the info of the input file's name
